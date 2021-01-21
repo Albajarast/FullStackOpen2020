@@ -9,7 +9,6 @@ const Content = (props) => {
   return (
     <>
       <p>
-        props.
         {props.part1} {props.exercises1}
       </p>
       <p>
@@ -41,7 +40,7 @@ const App = () => {
   const exercises3 = 14
 
   return (
-    <>
+    <div>
       <Header course={course} />
       <Content
         part1={part1}
@@ -56,7 +55,7 @@ const App = () => {
         exercises2={exercises2}
         exercises3={exercises3}
       />
-    </>
+    </div>
   )
 }
 
