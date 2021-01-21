@@ -3,12 +3,18 @@ Title 0.4 - New note
 browser -> server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
 
 note over server:
-Server signals the browser to redirect to
+Server saves the note and signals the browser to redirect to
 https://studies.cs.helsinki.fi/exampleapp/notes
 end note
 
 server --> browser : HHTP Status Code 302 - URL Redirect
 
+note left of browser
+The following content of the diagram
+is from Full Stack Open 2020 course so
+as to have it as reference of what happens
+after the redirect.
+end note
 
 browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
 server-->browser: HTML-code
