@@ -1,0 +1,15 @@
+title 0.6 - New note (spa)
+
+note over Browser
+The event handler "window.onload" 
+executes the "form.onsubmit" when
+the submit button is clicked 
+and follows these steps:
+
+1. Creates a new note.
+2. Pushes the note into the notes array.
+3. Render all the notes.
+4. Sends the new note to the server.
+end note
+
+Browser -> Server: HTTP Post https://studies.cs.helsinki.fi/exampleapp/new_note_spa
