@@ -6,8 +6,21 @@ const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(createVotesFor(anecdotes))
 
+  const getHigherVotedQuoteIndex = (votes) => {
+    let index = 0
+    for (let keyIndex in votes) {
+      if (votes[keyIndex] > votes[index]) {
+        index = keyIndex
+      }
+    }
+    return index
+  }
+
+  const mostVotedQuoteIndex = getHigherVotedQuoteIndex(votes)
+
   return (
     <>
+      <h1>Anecdote of the Day</h1>
       <div>{anecdotes[selected]}</div>
       <p>This anecdote has: {votes[selected]} points</p>
       <button
@@ -22,6 +35,11 @@ const App = (props) => {
       <button onClick={() => setSelected(randomIndexOf(anecdotes))}>
         Next Anecdote
       </button>
+      <h2>Anecdote with most votes:</h2>
+      <p>{anecdotes[mostVotedQuoteIndex]}</p>
+      <p>
+        Is the highest voted anecdote with {votes[mostVotedQuoteIndex]} votes
+      </p>
     </>
   )
 }
