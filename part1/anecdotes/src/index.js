@@ -4,9 +4,21 @@ import ReactDOM from 'react-dom'
 const App = (props) => {
   const { anecdotes } = props
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(createVotesFor(anecdotes))
+
   return (
     <>
       <div>{anecdotes[selected]}</div>
+      <p>This anecdote has: {votes[selected]} points</p>
+      <button
+        onClick={() => {
+          const votesCopy = { ...votes }
+          votesCopy[selected] += 1
+          setVotes(votesCopy)
+        }}
+      >
+        Vote
+      </button>
       <button onClick={() => setSelected(randomIndexOf(anecdotes))}>
         Next Anecdote
       </button>
@@ -20,6 +32,14 @@ const randomIndexOf = (arr) => {
   const lowerLimit = 0
 
   return Math.floor(Math.random() * (higherLimit - lowerLimit + 1)) + lowerLimit
+}
+
+const createVotesFor = (arr) => {
+  const votes = {}
+  arr.forEach((el, i) => {
+    votes[i] = 0
+  })
+  return votes
 }
 
 const anecdotes = [
