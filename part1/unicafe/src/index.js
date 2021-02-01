@@ -26,7 +26,7 @@ const Statistics = (props) => {
   let positive = 0
 
   if (good !== 0 || bad !== 0) {
-    positive = good / all
+    positive = (good / all) * 100 + ' %'
     average = (good - bad) / all
   }
 
