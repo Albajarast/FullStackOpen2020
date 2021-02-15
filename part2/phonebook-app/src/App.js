@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import Contact from './components/Contact'
+import FilterName from './components/FilterName'
+import PersonForm from './components/PersonForm'
+import ContactsList from './components/ContactsList'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -12,42 +14,6 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
 
-  const addNewName = (event) => {
-    event.preventDefault()
-    const newNameObject = {
-      name: newName,
-      number: newNumber
-    }
-
-    let foundPerson = false
-    if (persons.findIndex((person) => person.name === newName) !== -1) {
-      foundPerson = true
-    }
-
-    if (!foundPerson) {
-      setPersons(persons.concat(newNameObject))
-      setNewName('')
-      setNewNumber('')
-    } else {
-      setNewName('')
-      setNewNumber('')
-      alert(`The contact ${newName} already exists in your phonebook`)
-    }
-  }
-
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
-  }
-
-  const handleSearchChange = (event) => {
-    setNewSearch(event.target.value)
-    console.log(event.target.value.toLowerCase())
-  }
-
   const filteredPersons = persons.filter((person) =>
     person.name.toLowerCase().includes(newSearch.toLowerCase())
   )
@@ -57,27 +23,18 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <label htmlFor="search">Filter shown with:</label>
-      <input id="search" value={newSearch} onChange={handleSearchChange} />
-      <br />
-      <br />
-      <form onSubmit={addNewName}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input id="name" value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          <label htmlFor="number">Number:</label>
-          <input id="number" value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <FilterName newSearch={newSearch} setNewSearch={setNewSearch} />
+      <h3>Add a new contact</h3>
+      <PersonForm
+        persons={persons}
+        setPersons={setPersons}
+        newName={newName}
+        setNewName={setNewName}
+        newNumber={newNumber}
+        setNewNumber={setNewNumber}
+      />
       <h2>Numbers</h2>
-      {personsToShow.map((person) => (
-        <Contact key={person.name} person={person} />
-      ))}
+      <ContactsList persons={personsToShow} />
     </div>
   )
 }
