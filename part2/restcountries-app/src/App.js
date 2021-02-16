@@ -6,13 +6,13 @@ function App() {
   const [countries, setCountries] = useState([])
   const [search, setSearch] = useState('')
 
-  const featchData = () => {
+  const fetchCountryData = () => {
     axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
       setCountries(response.data)
     })
   }
 
-  useEffect(featchData, [])
+  useEffect(fetchCountryData, [])
 
   const filteredCountries =
     countries !== undefined
