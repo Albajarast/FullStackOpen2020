@@ -1,6 +1,26 @@
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import LanguagesList from './LanguagesList'
+import WeatherDisplay from './WeatherDisplay'
 
 const Country = ({ country }) => {
+  const [weather, setWeather] = useState({})
+
+  const fetchCapitalWeather = () => {
+    const params = {
+      params: {
+        access_key: process.env.REACT_APP_WEATHER_API_KEY,
+        query: country.capital,
+        units: 'm'
+      }
+    }
+    axios
+      .get(process.env.REACT_APP_WEATHER_API_URL, params)
+      .then((response) => setWeather(response.data.current))
+  }
+
+  useEffect(fetchCapitalWeather, [])
+
   return (
     <div>
       <h3>{country.name}</h3>
@@ -24,6 +44,12 @@ const Country = ({ country }) => {
       </ul>
       <h4>Languages:</h4>
       <LanguagesList languages={country.languages} />
+
+      {weather ? (
+        <WeatherDisplay weather={weather} country={country} />
+      ) : (
+        <p>Sorry we can not load the data</p>
+      )}
     </div>
   )
 }
