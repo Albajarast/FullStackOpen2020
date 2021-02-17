@@ -13,6 +13,15 @@ const Country = ({ country }) => {
         <strong>Population: </strong>
         {country.population.toLocaleString('es-ES')}
       </p>
+      <h4>Coordinates</h4>
+      <ul>
+        <li>
+          <strong>Latitude:</strong> {country.latlng[0]}
+        </li>
+        <li>
+          <strong>Longitude:</strong> {country.latlng[1]}
+        </li>
+      </ul>
       <h4>Languages:</h4>
       <LanguagesList languages={country.languages} />
     </div>

@@ -1,4 +1,5 @@
 import Country from './Country'
+import ShowButton from './ShowButton'
 
 const Display = ({ countries, search }) => {
   if (search === '') {
@@ -13,7 +14,11 @@ const Display = ({ countries, search }) => {
     return (
       <div>
         {countries.map((country) => (
-          <p key={country.alpha3Code}>{country.name}</p>
+          <div key={country.name}>
+            <span>{country.name} </span>
+            <ShowButton country={country} />
+            <br />
+          </div>
         ))}
       </div>
     )
