@@ -14,7 +14,16 @@ function PersonForm({ persons, setPersons }) {
     }
 
     let foundPerson = false
-    if (persons.findIndex((person) => person.name === newName) !== -1) {
+    let foundPersonIndex = persons.findIndex(
+      (person) => person.name === newName
+    )
+    let foundPersonId
+    if (foundPersonIndex !== -1) {
+      const fountPersonIndex = persons.findIndex(
+        (person) => person.name === newName
+      )
+      foundPersonId = foundPersonIndex + 1
+      console.log(foundPersonIndex, foundPersonId)
       foundPerson = true
     }
 
@@ -27,7 +36,22 @@ function PersonForm({ persons, setPersons }) {
     } else {
       setNewName('')
       setNewNumber('')
-      alert(`The contact ${newName} already exists in your phonebook`)
+      const update = window.confirm(
+        `${persons[foundPersonIndex].name} already exists! Do you want to replace the old number with a new one?`
+      )
+      if (update) {
+        personService
+          .updateById(foundPersonId, newPerson)
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== foundPersonId ? person : returnedPerson
+              )
+            )
+          })
+      } else {
+        console.log('Cancelled!')
+      }
     }
   }
 

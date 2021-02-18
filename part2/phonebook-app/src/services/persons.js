@@ -16,10 +16,16 @@ const deleteById = (id) => {
   return request.then((response) => response.data)
 }
 
+const updateById = (id, updatedPerson) => {
+  const request = axios.put(`${baseUrl}/${id}`, updatedPerson)
+  return request.then((response) => response.data)
+}
+
 const methods = {
   getAll,
   create,
-  deleteById
+  deleteById,
+  updateById
 }
 
 export default methods
