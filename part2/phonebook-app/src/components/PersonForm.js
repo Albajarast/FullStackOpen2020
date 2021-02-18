@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import personService from '../services/persons'
 
-function PersonForm({ persons, setPersons }) {
+function PersonForm({ persons, setPersons, setSuccessMessage }) {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
 
@@ -23,13 +23,13 @@ function PersonForm({ persons, setPersons }) {
         (person) => person.name === newName
       )
       foundPersonId = foundPersonIndex + 1
-      console.log(foundPersonIndex, foundPersonId)
       foundPerson = true
     }
 
     if (!foundPerson) {
       personService.create(newPerson).then((response) => {
         setPersons(persons.concat(response))
+        setSuccessMessage(`${response.name} successfully added to the list`)
         setNewName('')
         setNewNumber('')
       })
@@ -48,6 +48,10 @@ function PersonForm({ persons, setPersons }) {
                 person.id !== foundPersonId ? person : returnedPerson
               )
             )
+            setSuccessMessage(`${returnedPerson.name} updated`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 3000)
           })
       } else {
         console.log('Cancelled!')
