@@ -1,17 +1,16 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import FilterName from './components/FilterName'
 import PersonForm from './components/PersonForm'
 import ContactsList from './components/ContactsList'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newSearch, setNewSearch] = useState('')
 
   const fetchData = () => {
-    axios.get('http://localhost:3001/persons').then((response) => {
-      console.log(response.data)
-      setPersons(response.data)
+    personService.getAll().then((response) => {
+      setPersons(response)
     })
   }
 

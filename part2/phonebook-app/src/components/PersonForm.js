@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import personService from '../services/persons'
 
 function PersonForm({ persons, setPersons }) {
   const [newName, setNewName] = useState('')
@@ -12,21 +13,17 @@ function PersonForm({ persons, setPersons }) {
       number: newNumber
     }
 
-    console.log(newName)
-
     let foundPerson = false
     if (persons.findIndex((person) => person.name === newName) !== -1) {
       foundPerson = true
     }
 
     if (!foundPerson) {
-      axios
-        .post('http://localhost:3001/persons', newPerson)
-        .then((response) => {
-          setPersons(persons.concat(response.data))
-          setNewName('')
-          setNewNumber('')
-        })
+      personService.create(newPerson).then((response) => {
+        setPersons(persons.concat(response))
+        setNewName('')
+        setNewNumber('')
+      })
     } else {
       setNewName('')
       setNewNumber('')
