@@ -6,8 +6,6 @@ import ContactsList from './components/ContactsList'
 
 const App = () => {
   const [persons, setPersons] = useState([])
-  const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
 
   const fetchData = () => {
@@ -30,14 +28,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <FilterName newSearch={newSearch} setNewSearch={setNewSearch} />
       <h3>Add a new contact</h3>
-      <PersonForm
-        persons={persons}
-        setPersons={setPersons}
-        newName={newName}
-        setNewName={setNewName}
-        newNumber={newNumber}
-        setNewNumber={setNewNumber}
-      />
+      <PersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
       <ContactsList persons={personsToShow} />
     </div>

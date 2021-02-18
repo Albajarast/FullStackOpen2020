@@ -1,19 +1,18 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 
-function PersonForm({
-  persons,
-  setPersons,
-  newName,
-  setNewName,
-  newNumber,
-  setNewNumber
-}) {
+function PersonForm({ persons, setPersons }) {
+  const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
+
   const addNewName = (event) => {
     event.preventDefault()
-    const newNameObject = {
+    const newPerson = {
       name: newName,
       number: newNumber
     }
+
+    console.log(newName)
 
     let foundPerson = false
     if (persons.findIndex((person) => person.name === newName) !== -1) {
@@ -21,9 +20,13 @@ function PersonForm({
     }
 
     if (!foundPerson) {
-      setPersons(persons.concat(newNameObject))
-      setNewName('')
-      setNewNumber('')
+      axios
+        .post('http://localhost:3001/persons', newPerson)
+        .then((response) => {
+          setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')
+        })
     } else {
       setNewName('')
       setNewNumber('')
